@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,  shrink-to-fit=no' name='viewport' />
+    <meta name="HandheldFriendly" content="true">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Remote</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link href="/css/remote.css" rel="stylesheet">
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script>
+        function fire(x) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", x, false);
+            xhttp.send();
+            
+            var colors = ['red', 'black'];
+            var active = 0;
+            var started = Date.now();
+            var interval = setInterval(function() {
+                if (Date.now() - started > 1000) {
+                        document.querySelector('.led').style.background = 'black'
+                // and then pause it
+                clearInterval(interval);
+
+                } else {
+
+                // the thing to do every 100ms
+                document.querySelector('.led').style.background = colors[active];
+                active++;
+                if (active == colors.length) active = 0;
+                }
+
+            }, 50);
+        };
+        function loadtemp(){
+            $('#temperature').load('/php/temperature.php')
+        };
+        function loadpage(x){
+            window.location.href = x;
+        };
+        var onlongtouch; 
+        var timer, lockTimer;
+        var touchduration = 800; //length of time we want the user to touch before we do something
+
+        function touchstart() {
+            fire('/php/apple/menu_start.php')
+        }
+
+        function touchend() {
+            fire('/php/apple/menu_stop.php')
+        }
+
+        function touchstartb() {
+            fire('/php/apple/play_start.php')
+        }
+
+        function touchendb() {
+            fire('/php/apple/play_stop.php')
+        }
+
+        
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            document.getElementById("menu").addEventListener("touchstart", touchstart, false);
+            document.getElementById("menu").addEventListener("touchend", touchend, false);
+            document.getElementById("play").addEventListener("touchstart", touchstartb, false);
+            document.getElementById("play").addEventListener("touchend", touchendb, false);
+        });
+
+        $(document).ready(function(){
+
+
+            loadtemp();
+            setInterval(function(){
+                loadtemp() // this will run after every XX seconds
+            }, 10000);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="remote">
+        <div class="led"></div>
+        <div class="header">
+            <table>
+                <tr style="height: 15px;">
+                    <td style="position:absolute;left: 10px;top:10px" >
+                        <button type="button" onclick="fire('/php/all/video1.php')">Video 1</button>
+                        <div style="position:absolute;left: 120px;top:0px"><div id=temperature >XX.xx</div>°C</div>
+                    </td>
+                    <td>
+                        <button type="button" style="position:absolute;right: 10px;top:10px" onclick="fire('/php/all/video2.php')">Video 2</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table>
+           <tr>
+                <td>
+                    <button type="button" class="btn power" onclick="fire('/php/onkyo/power.php')">
+                        <i class="fa fa-power-off fa-4x"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn apple" onclick="fire('/php/apple/up.php')">
+                        <i class="fa fa-arrow-up fa-4x" aria-hidden="true"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn power" onclick="fire('/php/onkyo/power_off.php')">
+                        <i class="fa fa-3x">OFF</i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn apple" onclick="fire('/php/apple/left.php')">
+                        <i class="fa fa-arrow-left fa-4x" aria-hidden="true"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn apple" onclick="fire('/php/apple/ok.php')">
+                        <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn apple" onclick="fire('/php/apple/right.php')">
+                        <i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn apple" id="menu">
+                        <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn apple" onclick="fire('/php/apple/down.php')">
+                        <i class="fa fa-arrow-down fa-4x" aria-hidden="true"></i>
+                    </button>
+
+                </td>
+                <td>
+                    <button type="button" class="btn apple" id="play">
+                       <i class="fa fa-play fa-2x"></i> <i class="fa fa-pause fa-2x"></i>
+                    </button>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn vol mute" onclick="fire('/php/onkyo/mute.php')">
+                        <i class="fa fa-volume-off fa-4x"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn vol" onclick="fire('/php/onkyo/voldn.php')">
+                        <i class="fa fa-volume-down fa-4x"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn vol" onclick="fire('/php/onkyo/volup.php')">
+                        <i class="fa fa-volume-up fa-4x"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</body>
+
+</html>

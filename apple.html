@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/apple.css" />
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script>
+        function fire(x) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", x, false);
+            xhttp.send();
+            
+            var colors = ['red', 'black'];
+            var active = 0;
+            var started = Date.now();
+            var interval = setInterval(function() {
+                if (Date.now() - started > 1000) {
+                        document.querySelector('.led').style.background = 'black'
+                // and then pause it
+                clearInterval(interval);
+
+                } else {
+
+                // the thing to do every 100ms
+                document.querySelector('.led').style.background = colors[active];
+                active++;
+                if (active == colors.length) active = 0;
+                }
+
+            }, 100);
+        };
+        function loadpage(x) {
+            window.location.href = x;
+        };
+    </script>
+
+    <style type="text/css">
+        
+    </style>
+
+    <title></title>
+
+    </script>
+
+
+</head>
+
+<body>
+    <div id="apple-remote">
+        <div class="led"></div>
+        <table id="ring" class="btn black-btn">
+            <tr>
+                <td class="ring-btn"></td>
+                <td class="ring-btn" onclick="fire('/php/apple/up.php')">
+                    <i class="fa fa-circle" style="position: absolute; top: 8px;"></i>
+                </td>
+                <td class="ring-btn"></td>
+            </tr>
+            <tr>
+                <td class="ring-btn" onclick="fire('/php/apple/left.php')">
+                    <i class="fa fa-circle" style="position: absolute; left: 8px;"></i>
+                </td>
+                <td class="ring-btn" onclick="fire('/php/apple/ok.php')">
+                    <div class="circle"></div>
+                </td>
+                <td class="ring-btn" onclick="fire('/php/apple/right.php')">
+                    <i class="fa fa-circle" style="position: absolute; right: 8px;"></i>
+                </td>
+            </tr>
+            <tr class="ring-btn">
+                <td class="ring-btn"></td>
+                <td class="ring-btn" onclick="fire('/php/apple/down.php')">
+                    <i class="fa fa-circle" style="position: absolute; bottom: 8px;"></i>
+                </td>
+                <td class="ring-btn"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <button type="button" id="menu" class="btn black-btn" onclick="fire('/php/apple/menu.php')">
+                        MENU
+                    </button>
+                </td>
+                <td>
+                    <button type="button" id="pauseplay" class="btn black-btn" onclick="fire('/php/apple/play.php')">
+                        <i class="fa fa-play"></i> <i class="fa fa-pause"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        
+        <button onclick="loadpage('index.html')" class="btn" >
+            <-- Back
+        </button>
+    </div>
+    <div class="search">
+        <form name="search" action="/php/apple/keyboard.php" method="get">
+            Search: <input type="text" name="search">
+            <input type="submit" value="Submit">
+        </form> 
+    </div>
+</body>
+
+</html>
