@@ -1,75 +1,27 @@
-.remote {
-  background-color: #50514F;
-  border-radius: 15px;
-  padding: 5px;
-  color: white;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-}
-
-html {
-    -webkit-text-size-adjust: none
-}
-
-.power {
-  background-color: #F25F5C;
-}
-
-.vol {
-  background-color: #247BA0;
-}
-
-.mute {
-  background-color: #FFE066;
-}
-
-.apple {
-  background-color: #000000;
-}
-
 .btn {
-  position: relative;
-  top: 0px;
-  transition: all ease 0.2s;
-  width: 90px;
-  height: 90px;
-  border-radius: 20px;
-  border-color: transparent;
-  color: white;
-  outline:none;
-  margin: 3px;
+  height: 70px;
 }
-.btn:active {
-  top: 3px;
+.nav>li>a {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+  margin-left: 0px;
+  margin-right: 0px;
 }
-
-#temperature {
-  font-size: 100%;
-  display:inline;
+.container>.row {
+  padding-bottom: 10px !important;
+  padding-right: 5px !important;
+  padding-left: 5px !important;
 }
 
-.symbol {
-  font-size: 60%;
+.tab-content>div>.container>.row>div {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
-.header {
-  width: 100%;
-  text-align: center;
-  padding: 3px;
+body {
+  background-color: #ffffff !important;
 }
 
-.led {
-    position: relative;
-    padding: 0px;
-    background: rgb(0, 0, 0);
-    border-radius: 10px 10px 0px 0px;
-    width: 50px;
-    height: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    top: -10px;
+body>div>.row {
+  background-color: #ffffff !important;
 }
