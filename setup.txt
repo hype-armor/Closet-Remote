@@ -13,6 +13,8 @@ echo "alias apti='sudo apt-get install'" >> .bashrc
 echo "alias aptu='sudo apt-get update'" >> .bashrc
 echo "alias aptg='sudo apt-get upgrade'" >> .bashrc
 echo "alias apts='apt-cache search'" >> .bashrc
+echo "alias cls='clear'" >> .bashrc
+echo "alias temp='sudo /opt/vc/bin/vcgencmd measure_temp'" >> .bashrc
 exit
 
 # Sign in as greg to test aliases
@@ -20,7 +22,17 @@ exit
 aptu -y
 aptg -y
 sudo apt-get dist-upgrade -y
-apti -y lighttpd
+apti -y lighttpd lighttpd php5-cgi
+sudo lighty-enable-mod fastcgi 
+sudo lighty-enable-mod fastcgi-php
+sudo service lighttpd force-reload
+sudo chown greg /var/www/html
+
+# this shouldn't be needed since we run enable-mods but those didn't work for some reason.
+sudo ln -s /etc/lighttpd/conf-available/10-fastcgi.conf /etc/lighttpd/conf-enabled/
+sudo ln -s /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-enabled/
+sudo service lighttpd force-reload
+
 apti -y lirc
 
 sudo vi /etc/modules
