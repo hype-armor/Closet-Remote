@@ -1,0 +1,22 @@
+sudo adduser greg
+
+sudo visudo
+
+exit
+
+# Sign in as greg
+
+echo "#####################" >> .bashrc
+echo "# Personal touches  #" >> .bashrc
+echo "#####################" >> .bashrc
+echo "alias apti='sudo apt-get install'" >> .bashrc
+echo "alias aptu='sudo apt-get update'" >> .bashrc
+echo "alias aptg='sudo apt-get upgrade'" >> .bashrc
+echo "alias apts='apt-cache search'" >> .bashrc
+exit
+
+# Sign in as greg to test aliases
+
+aptu
+aptg
+sudo apt-get dist-upgrade
