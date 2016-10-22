@@ -2,180 +2,266 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,  shrink-to-fit=no' name='viewport' />
-    <meta name="HandheldFriendly" content="true">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title>Remote</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>Remote</title>
+	<link href="css/remote.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="js/jquery-1.7.2.min.js"></script>
+	<script>
+      function fire(x) {
+        function processData(data) {
+          // taking care of data
+        }
 
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-    <link href="/css/remote.css" rel="stylesheet">
-    <script src="/js/jquery-1.7.2.min.js"></script>
-    <script>
-        function fire(x) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", x, false);
-            xhttp.send();
+        function handler() {
+          if(this.status == 200 &&
+            this.responseXML != null &&
+            this.responseXML.getElementById('test').textContent) {
+            // success!
+            processData(this.responseXML.getElementById('test').textContent);
+          } else {
+            // something went wrong
             
-            var colors = ['red', 'black'];
-            var active = 0;
-            var started = Date.now();
-            var interval = setInterval(function() {
-                if (Date.now() - started > 1000) {
-                        document.querySelector('.led').style.background = 'black'
-                // and then pause it
-                clearInterval(interval);
-
-                } else {
-
-                // the thing to do every 100ms
-                document.querySelector('.led').style.background = colors[active];
-                active++;
-                if (active == colors.length) active = 0;
-                }
-
-            }, 50);
-        };
-        function loadtemp(){
-            $('#temperature').load('/php/temperature.php')
-        };
-        function loadpage(x){
-            window.location.href = x;
-        };
-        var onlongtouch; 
-        var timer, lockTimer;
-        var touchduration = 800; //length of time we want the user to touch before we do something
-
-        function touchstart() {
-            fire('/php/apple/menu_start.php')
+          }
         }
+        var client = new XMLHttpRequest();
+        client.onload = handler;
+        client.open("GET", x);
+        client.send();
+      };
 
-        function touchend() {
-            fire('/php/apple/menu_stop.php')
-        }
+      function loadtemp(){
+          $('#temperature').load('/php/temperature.php')
+      };
+      function loadpage(x){
+          window.location.href = x;
+      };
+      var onlongtouch; 
+      var timer, lockTimer;
+      var touchduration = 800; //length of time we want the user to touch before we do something
 
-        function touchstartb() {
-            fire('/php/apple/play_start.php')
-        }
+      function touchstart() {
+          fire('/php/apple/menu_start.php')
+      }
 
-        function touchendb() {
-            fire('/php/apple/play_stop.php')
-        }
+      function touchend() {
+          fire('/php/apple/menu_stop.php')
+      }
 
-        
-        document.addEventListener("DOMContentLoaded", function(event) { 
-            document.getElementById("menu").addEventListener("touchstart", touchstart, false);
-            document.getElementById("menu").addEventListener("touchend", touchend, false);
-            document.getElementById("play").addEventListener("touchstart", touchstartb, false);
-            document.getElementById("play").addEventListener("touchend", touchendb, false);
-        });
+      function touchstartb() {
+          fire('/php/apple/play_start.php')
+      }
 
-        $(document).ready(function(){
+      function touchendb() {
+          fire('/php/apple/play_stop.php')
+      }
 
+      
+      document.addEventListener("DOMContentLoaded", function(event) { 
+          document.getElementById("menu").addEventListener("touchstart", touchstart, false);
+          document.getElementById("menu").addEventListener("touchend", touchend, false);
+          document.getElementById("play").addEventListener("touchstart", touchstartb, false);
+          document.getElementById("play").addEventListener("touchend", touchendb, false);
+      });
+      function loadtemp(){
+          $('#temperature').load('/php/temperature.php')
+      };
 
-            loadtemp();
-            setInterval(function(){
-                loadtemp() // this will run after every XX seconds
-            }, 10000);
-        });
+      $(document).ready(function(){
+          (function($) {
+          var IS_IOS = /iphone|ipad/i.test(navigator.userAgent);
+          $.fn.nodoubletapzoom = function() {
+              if (IS_IOS)
+              $(this).bind('touchstart', function preventZoom(e) {
+                  var t2 = e.timeStamp
+                  , t1 = $(this).data('lastTouch') || t2
+                  , dt = t2 - t1
+                  , fingers = e.originalEvent.touches.length;
+                  $(this).data('lastTouch', t2);
+                  if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+                  e.preventDefault(); // double tap - prevent the zoom
+                  // also synthesize click events we just swallowed up
+                  $(this).trigger('click').trigger('click');
+              });
+          };
+          })(jQuery);
+
+          loadtemp();
+          setInterval(function(){
+              loadtemp() // this will run after every XX seconds
+          }, 10000);
+      });
     </script>
 </head>
 
 <body>
-    <div class="remote">
-        <div class="led"></div>
-        <div class="header">
-            <table>
-                <tr style="height: 15px;">
-                    <td style="position:absolute;left: 10px;top:10px" >
-                        <button type="button" onclick="fire('/php/all/video1.php')">Video 1</button>
-                        <div style="position:absolute;left: 120px;top:0px"><div id=temperature >XX.xx</div>°C</div>
-                    </td>
-                    <td>
-                        <button type="button" style="position:absolute;right: 10px;top:10px" onclick="fire('/php/all/video2.php')">Video 2</button>
-                    </td>
-                </tr>
-            </table>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+					<li><a data-toggle="tab" role="tab" href="#onkyo">Onkyo</a></li>
+					<li><a data-toggle="tab" role="tab" href="#appletv">Apple</a></li>
+					<li><a data-toggle="tab" role="tab" href="#hdmiswitch">HDMI</a></li>
+					<li><a data-toggle="tab" role="tab" href="#viewsonic">Projector</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="tab-content">
+		<div id="home" class="tab-pane fade in active">
+			<div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <b style="position:absolute;left: 140px;top:-10px"><b id="temperature" >XX</b>°C</b>
+          </div>
         </div>
-        <table>
-           <tr>
-                <td>
-                    <button type="button" class="btn power" onclick="fire('/php/onkyo/power_on.php')">
-                        <i class="fa fa-power-off fa-4x"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn apple" onclick="fire('/php/apple/up.php')">
-                        <i class="fa fa-arrow-up fa-4x" aria-hidden="true"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn power" onclick="fire('/php/onkyo/power_off.php')">
-                        <i class="fa fa-3x">OFF</i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" class="btn apple" onclick="fire('/php/apple/left.php')">
-                        <i class="fa fa-arrow-left fa-4x" aria-hidden="true"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn apple" onclick="fire('/php/apple/ok.php')">
-                        <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn apple" onclick="fire('/php/apple/right.php')">
-                        <i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" class="btn apple" id="menu">
-                        <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn apple" onclick="fire('/php/apple/down.php')">
-                        <i class="fa fa-arrow-down fa-4x" aria-hidden="true"></i>
-                    </button>
+				<div class="row">
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/power_on.php')">ON</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/left.php')">left</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/menu.php')" id="menu">menu</button>
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/video1.php')">Video 1</button>
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/video2.php')">Video 2</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/up.php')">up</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/ok.php')">ok</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/down.php')">down</button>
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/onkyo/volup.php')">vol up</button>
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/onkyo/voldn.php')">vol down</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/power_off.php')">OFF</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/right.php')">right</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/play.php')" id="play">play</button>
+						<button type="button" class="btn btn-default btn-block" onclick="fire('/php/viewsonic/eco.php')">eco</button>
+						<button type="button" class="btn btn-primary btn-block" onclick="fire('/php/onkyo/mute.php')">mute</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="onkyo" class="tab-pane fade" role="tabpanel">
+			<div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <b></b>
+          </div>
+        </div>
+				<div class="row">
+					<div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/power_on.php')">ON</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/volup.php')">vol up</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/voldn.php')">vol dn</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/mute.php')">mute</button>
+          </div>
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video1.php')">Video 1</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video2.php')">Video 2</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video2.php')">Video 3</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video2.php')">Video 4</button>
+          </div>
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/power_off.php')">OFF</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/d.php')">Stereo</button>
+            <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/d.php')">Surround</button>
+          </div>
+        </div>
+			</div>
+		</div>
+		<div id="appletv" class="tab-pane fade" role="tabpanel">
+			<div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <b></b>
+          </div>
+        </div>
+				<div class="row">
+					<div class="col-xs-4">
+						<b type="button" class="btn btn-block" ></b>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/left.php')">left</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/menu.php')" id="menu">menu</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/up.php')">up</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/ok.php')">ok</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/down.php')">down</button>
+					</div>
+					<div class="col-xs-4">
+						<b type="button" class="btn btn-block" ></b>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/right.php')">right</button>
+						<button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/play.php')" id="play">play</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="hdmiswitch" class="tab-pane fade" role="tabpanel">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <b></b>
+          </div>
+        </div>
+				<div class="row">
+					<div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/power.php')">power</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/surround.php')">surround</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/stereo.php')">stereo</button>
+          </div>
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/input1.php')">input1</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/input2.php')">input2</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/input3.php')">input3</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/input4.php')">input4</button>
+          </div>
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/next.php')">next</button>
+            <button type="button" class="btn btn-info btn-block" onclick="fire('/php/monoprice/previous.php')">previous</button>
+          </div>
+        </div>
+			</div>
+		</div>
+		<div id="viewsonic" class="tab-pane fade" role="tabpanel">
+			<div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <b></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/power.php')">power</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/left.php')">left</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/menu.php')">menu</button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/up.php')">up</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/enter.php')">enter</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/down.php')">down</button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/eco.php')">eco</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/right.php')">right</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/exit.php')">exit</button>
+                </div>
+                </div>
+			</div>
+		</div>
+	</div>
 
-                </td>
-                <td>
-                    <button type="button" class="btn apple" id="play">
-                       <i class="fa fa-play fa-2x"></i> <i class="fa fa-pause fa-2x"></i>
-                    </button>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" class="btn vol mute" onclick="fire('/php/onkyo/mute.php')">
-                        <i class="fa fa-volume-off fa-4x"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn vol" onclick="fire('/php/onkyo/voldn.php')">
-                        <i class="fa fa-volume-down fa-4x"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn vol" onclick="fire('/php/onkyo/volup.php')">
-                        <i class="fa fa-volume-up fa-4x"></i>
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </div>
 
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
