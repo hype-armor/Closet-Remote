@@ -17,6 +17,52 @@ exit
 
 # Sign in as greg to test aliases
 
-aptu
-aptg
-sudo apt-get dist-upgrade
+aptu -y
+aptg -y
+sudo apt-get dist-upgrade -y
+apti -y lighttpd
+apti -y lirc
+
+sudo vi /etc/modules
+# add the following lines
+lirc_dev
+lirc_rpi gpio_in_pin=23 gpio_out_pin=24
+
+sudo cp /etc/lirc/hardware.conf /etc/lirc/hardware.conf.bk
+sudo vi /etc/lirc/hardware.conf
+# add the following lines
+LIRCD_ARGS="--uinput"
+LOAD_MODULES=true
+DRIVER="default"
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+LIRCD_CONF=""
+LIRCMD_CONF=""
+
+sudo reboot
+
+# Sign in as greg
+
+sudo cp /etc/lirc/lircd.conf /etc/lirc/lircd.conf.bk
+sudo vi /etc/lirc/lircd.conf
+# copy remote configs into file
+
+
+# install screen
+apti screen
+screen
+# user "Ctrl+A then d" to detach and "Ctrl+A then K" to kill.
+
+sudo cp /etc/network/interfaces /etc/network/interfaces.bk
+sudo vi /etc/network/interfaces
+# scroll down to "iface wlan0 inet manual"
+# change manual to static
+# then add the following lines
+address 192.168.0.55
+netmask 255.255.255.0
+network 192.168.0.0
+broadcast 192.168.0.255
+gateway 192.168.0.1
+
+sudo rm /var/lib/dhcp/*
+
