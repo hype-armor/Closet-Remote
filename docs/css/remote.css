@@ -1,0 +1,27 @@
+.btn {
+  height: 70px;
+}
+.nav>li>a {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.container>.row {
+  padding-bottom: 10px !important;
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.tab-content>div>.container>.row>div {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+body {
+  background-color: #ffffff !important;
+}
+
+body>div>.row {
+  background-color: #ffffff !important;
+}
