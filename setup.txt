@@ -36,11 +36,6 @@ sudo service lighttpd force-reload
 
 apti -y lirc
 
-sudo vi /etc/modules
-# add the following lines
-lirc_dev
-lirc_rpi gpio_in_pin=23 gpio_out_pin=24
-
 sudo cp /etc/lirc/hardware.conf /etc/lirc/hardware.conf.bk
 sudo vi /etc/lirc/hardware.conf
 # add the following lines
@@ -85,3 +80,4 @@ apti -y samba
 sudo smbpasswd -a greg
 
 http://ezservermonitor.com/esm-web/downloads
+
