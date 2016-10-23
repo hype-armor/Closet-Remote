@@ -1,6 +1,6 @@
 <?php
-$cpuUsage = exec('top -bn1 | grep "Cpu(s)" | \
-           sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk \'{print 100 - $1"%"}\'');
+$cpuUsage = round(floatval(exec('cat /proc/loadavg | cut -d \' \' -f 1')) * 100,0);
+
 $memUsage = round(floatval(exec('top -bn1 | awk \'FNR == 4 {print $3/($3+$5)*100}\'')),0);
 
 $cpuTempSensor = exec('cat /sys/class/thermal/thermal_zone0/temp');
@@ -12,7 +12,7 @@ $airTemp = round(floatval(explode("=",$airTempSensor)[1]) / 1000, 0);
 
 echo 'CPU: ';
 echo $cpuUsage;
-echo ' ';
+echo '% ';
 echo 'MEM: ';
 echo $memUsage;
 echo '% ';
