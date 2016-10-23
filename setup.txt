@@ -79,3 +79,9 @@ gateway 192.168.0.1
 
 sudo rm /var/lib/dhcp/*
 
+apti -y tightvncserver
+apti -y xrdp
+apti -y samba
+sudo smbpasswd -a greg
+
+http://ezservermonitor.com/esm-web/downloads
