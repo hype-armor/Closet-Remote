@@ -19,9 +19,20 @@
 }
 
 body {
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
 }
 
 body>div>.row {
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
+}
+
+button, .btn {
+    outline: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    box-shadow: none !important;
+}
+
+.btn:focus, .btn:active:focus {
+  outline: none;
+  box-shadow: none !important;
 }
