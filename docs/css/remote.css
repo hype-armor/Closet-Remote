@@ -19,9 +19,30 @@
 }
 
 body {
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
 }
 
 body>div>.row {
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
+}
+
+/* remove color canges and outlines while focused */
+.btn, .btn:focus, .btn:active, .btn:active:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.btn-info:hover {
+  background-color: #5bc0de !important;
+  border-color: #46b8da !important;
+}
+
+.btn-primary:hover {
+  background-color: #337ab7!important;
+  border-color: #2e6da4!important;
+}
+
+.btn-success:hover {
+  background-color: #5cb85c!important;
+  border-color: #4cae4c!important;
 }
