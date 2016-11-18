@@ -52,7 +52,9 @@
           </div>
           <div class="row">
             <div class="col-xs-4">
-              <button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/power_on.php')">ON</button>
+              <button type="button" class="btn btn-success btn-block" onclick="fire('/php/all/power_on.php')">
+                <i class="fa fa-power-off fa-3x"></i>
+              </button>
               <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/left.php')">
                 <i class="fa fa-arrow-left fa-3x"></i>
               </button>
@@ -80,7 +82,9 @@
               </button>
             </div>
             <div class="col-xs-4">
-              <button type="button" class="btn btn-primary btn-block" onclick="fire('/php/all/power_off.php')">OFF</button>
+              <button type="button" class="btn btn-danger btn-block" onclick="fire('/php/all/power_off.php')">
+                <i class="fa fa-power-off fa-3x"></i>
+              </button>
               <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/right.php')">
                 <i class="fa fa-arrow-right fa-3x"></i>
               </button>
@@ -106,10 +110,18 @@
           </div>
           <div class="row">
             <div class="col-xs-4">
-              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/power_on.php')">ON</button>
-              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/volup.php')">vol up</button>
-              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/voldn.php')">vol dn</button>
-              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/mute.php')">mute</button>
+              <button type="button" class="btn btn-success btn-block"  onclick="fire('/php/onkyo/power_on.php')">
+                <i class="fa fa-power-off fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/volup.php')">
+                <i class="fa fa-volume-up fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/voldn.php')">
+                <i class="fa fa-volume-down fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/mute.php')">
+                <i class="fa fa-volume-off fa-3x"></i>
+              </button>
             </div>
             <div class="col-xs-4">
               <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video1.php')">Video 1</button>
@@ -118,7 +130,9 @@
               <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/video4.php')">Video 4</button>
             </div>
             <div class="col-xs-4">
-              <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/power_off.php')">OFF</button>
+              <button type="button" class="btn btn-danger btn-block"  onclick="fire('/php/onkyo/power_off.php')">
+                <i class="fa fa-power-off fa-3x"></i>
+              </button>
               <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/d.php')">Stereo</button>
               <button type="button" class="btn btn-info btn-block"  onclick="fire('/php/onkyo/d.php')">Surround</button>
             </div>
@@ -135,18 +149,32 @@
           <div class="row">
             <div class="col-xs-4">
               <b type="button" class="btn btn-block" ></b>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/left.php')">left</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/menu.php')" id="menu">menu</button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/left.php')">
+                <i class="fa fa-arrow-left fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/menu.php')" id="menu">
+                <i class="fa fa-bars fa-3x"></i>
+              </button>
             </div>
             <div class="col-xs-4">
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/up.php')">up</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/ok.php')">ok</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/down.php')">down</button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/up.php')">
+                <i class="fa fa-arrow-up fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/ok.php')">
+                <i class="fa fa-circle fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/down.php')">
+                <i class="fa fa-arrow-down fa-3x"></i>
+              </button>
             </div>
             <div class="col-xs-4">
               <b type="button" class="btn btn-block" ></b>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/right.php')">right</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/play.php')" id="play">play</button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/right.php')">
+                <i class="fa fa-arrow-right fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/apple/play.php')" id="play">
+                <i class="fa fa-play fa-3x"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -186,19 +214,37 @@
           </div>
           <div class="row">
             <div class="col-xs-4">
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/power.php')">power</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/left.php')">left</button>
-              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/menu.php')">menu</button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/power.php')">
+                <i class="fa fa-power-off fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/left.php')">
+                <i class="fa fa-arrow-left fa-3x"></i>
+              </button>
+              <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/menu.php')">
+                <i class="fa fa-bars fa-3x"></i>
+              </button>
             </div>
             <div class="col-xs-4">
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/up.php')">up</button>
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/enter.php')">enter</button>
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/down.php')">down</button>
+                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/up.php')">
+                  <i class="fa fa-arrow-up fa-3x"></i>
+                </button>
+                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/enter.php')">
+                  <i class="fa fa-circle fa-3x"></i>
+                </button>
+                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/down.php')">
+                  <i class="fa fa-arrow-down fa-3x"></i>
+                </button>
             </div>
             <div class="col-xs-4">
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/eco.php')">eco</button>
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/right.php')">right</button>
-                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/exit.php')">exit</button>
+                <button type="button" class="btn btn-success btn-block" onclick="fire('/php/viewsonic/eco.php')">
+                  <i class="fa fa-envira fa-3x"></i>
+                </button>
+                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/right.php')">
+                  <i class="fa fa-arrow-right fa-3x"></i>
+                </button>
+                <button type="button" class="btn btn-info btn-block" onclick="fire('/php/viewsonic/exit.php')">
+                  <i class="fa fa-times fa-3x"></i>
+                </button>
             </div>
           </div>
         </div>
