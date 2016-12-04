@@ -6,4 +6,7 @@
 
 	// turn off Apple TV
 	system ("irsend SEND_ONCE appletv KEY_MENU");
+
+	// attempt to turn on projector
+	system ("irsend SEND_ONCE viewsonic KEY_POWER");
 ?>
